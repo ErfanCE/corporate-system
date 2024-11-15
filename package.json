@@ -1,0 +1,28 @@
+{
+  "name": "corporate-system",
+  "version": "1.0.0",
+  "description": "build simple app using node.js express mongodb",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErfanCE/corporate-system.git"
+  },
+  "author": "ErfanCE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErfanCE/corporate-system/issues"
+  },
+  "homepage": "https://github.com/ErfanCE/corporate-system#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
