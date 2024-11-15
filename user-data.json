@@ -1,0 +1,90 @@
+[
+	{
+		"firstname": "Behnam",
+		"lastname": "Mahmoodi",
+		"username": "behnam_mahmoodi",
+		"password": "user1234",
+		"dateOfBirth": "1999-05-13",
+		"gender": "male",
+		"role": "admin",
+		"phoneNumber": [
+			"04111334452",
+			"01131394855"
+		],
+		"mass": 80,
+		"city": "karaj",
+		"isMarried": false
+	},
+	{
+		"firstname": "ali",
+		"lastname": "ahmadi",
+		"city": "abhar",
+		"postalCode": "3345673232",
+		"phoneNumber": "04111334452",
+		"position": "analyzer"
+	},
+	{
+		"firstname": "ali",
+		"lastname": "ahmadi",
+		"city": "rasht",
+		"postalCode": "9945643232",
+		"phoneNumber": "01131394855",
+		"position": "ui designer"
+	},
+	{
+		"firstname": "shahriar",
+		"lastname": "ahmadi gol",
+		"city": "mashad",
+		"postalCode": "5545689232",
+		"phoneNumber": "04121334415",
+		"position": "ui designer"
+	},
+	{
+		"firstname": "reza",
+		"lastname": "rahmani",
+		"city": "semnan",
+		"postalCode": "774565392",
+		"phoneNumber": "09331334225",
+		"position": "analyzer"
+	},
+	{
+		"firstname": "mohammadhadi",
+		"lastname": "soleimani",
+		"city": "shiraz",
+		"postalCode": "7845482232",
+		"phoneNumber": "07771333455",
+		"position": "php programmer"
+	},
+	{
+		"firstname": "mohsen",
+		"lastname": "zare",
+		"city": "zahedan",
+		"postalCode": "1145119212",
+		"phoneNumber": "01221399450",
+		"position": "ux designer"
+	},
+	{
+		"firstname": "milad",
+		"lastname": "rabani",
+		"city": "qom",
+		"postalCode": "8845383233",
+		"phoneNumber": "08121320452",
+		"position": "node programmer"
+	},
+	{
+		"firstname": "mahdi",
+		"lastname": "mohseni naseb",
+		"city": "ahvaz",
+		"postalCode": "2242689035",
+		"phoneNumber": "02211783452",
+		"position": "ux designer"
+	},
+	{
+		"firstname": "soheil",
+		"lastname": "hossein",
+		"city": "arak",
+		"postalCode": "1145129244",
+		"phoneNumber": "01221334665",
+		"position": "java programmer"
+	}
+]
