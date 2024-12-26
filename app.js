@@ -1,7 +1,7 @@
 // Third Party Modules
 const express = require('express');
-const mongoose = require('mongoose');
 const morgan = require('morgan');
+const { connectToDatabase } = require('./database/database-connection');
 
 // Local Modules
 const { AppError } = require('./utils/app-error');
@@ -11,15 +11,7 @@ const app = express();
 const port = 8000;
 const host = '127.0.0.1';
 
-mongoose
-  .connect('mongodb://localhost:27017/corporate')
-  .then(() => {
-    console.log('[+] database connected successfully.');
-  })
-  .catch((err) => {
-    console.error('[-] database connection error:', err.message);
-    process.exit(1);
-  });
+connectToDatabase();
 
 // Logger
 app.use(morgan('dev'));
