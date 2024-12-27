@@ -1,8 +1,23 @@
 const Employee = require('../models/employee-model');
 const { AppError } = require('../utils/app-error');
+const { ApiFeatures } = require('../utils/api-features');
 const { getProvinces } = require('../utils/iran-provinces-data');
 
-// /post > validator(validationSchema) > validatePrvince > addEmployee
+const getAllEmployees = async (req, res, next) => {
+  try {
+    const employeeModel = new ApiFeatures(Employee.find({}), req.query)
+      .limitFields()
+      .paginate()
+      .filter()
+      .sort();
+
+    const employees = await employeeModel.model;
+
+    res.status(200).json({ status: 'success', data: { employees } });
+  } catch (err) {
+    next(err);
+  }
+};
 
 const validateProvince = async (req, res, next) => {
   try {
@@ -47,6 +62,7 @@ const addEmployee = async (req, res, next) => {
         );
       }
     }
+
     const employee = await Employee.create(req.body);
 
     res.status(201).json({
@@ -54,10 +70,8 @@ const addEmployee = async (req, res, next) => {
       data: { employee }
     });
   } catch (err) {
-    console.log(err);
-
     next(err);
   }
 };
 
-module.exports = { addEmployee, validateProvince };
+module.exports = { getAllEmployees, addEmployee, validateProvince };
