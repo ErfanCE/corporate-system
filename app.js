@@ -11,6 +11,7 @@ const app = express();
 const port = 8000;
 const host = '127.0.0.1';
 
+// database connection
 connectToDatabase();
 
 // Logger

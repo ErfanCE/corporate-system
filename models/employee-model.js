@@ -32,13 +32,7 @@ const EmployeeSchema = new Schema(
       type: Date,
       required: [true, 'date of birth is required'],
       validate: {
-        validator: (value) => {
-          return isDate(value, {
-            format: 'YYYY/MM/DD',
-            strictMode: true,
-            delimiters: ['-']
-          });
-        },
+        validator: (value) => isDate(value),
         message: 'provide valid date of birth'
       }
     },
@@ -61,6 +55,8 @@ const EmployeeSchema = new Schema(
       lowercase: true,
       validate: async (value) => {
         try {
+          if (value === 'not-set') return true;
+
           const provinces = await getProvinces();
           return provinces.includes(value);
         } catch (err) {
@@ -68,13 +64,6 @@ const EmployeeSchema = new Schema(
         }
       },
       message: 'provide valid province'
-    },
-    company: {
-      type: String,
-      required: [true, 'company is required.'],
-      minlength: [2, 'company must be equal or more than 3 characters'],
-      maxlength: [40, 'company must be equal or less than 30 characters'],
-      trim: true
     },
     role: {
       type: String,
@@ -92,7 +81,7 @@ const EmployeeSchema = new Schema(
       required: [true, 'phone number is required'],
       validate: {
         validator: (value) => {
-          if (value.length) return false;
+          if (!value.length) return false;
 
           return value.every((phone) => isMobilePhone(phone, 'fa-IR'));
         },
