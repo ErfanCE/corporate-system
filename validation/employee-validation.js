@@ -20,4 +20,16 @@ const addEmployeeValidationSchema = Joi.object({
   gender: Joi.string().valid('male', 'female', 'not-set').lowercase().trim()
 });
 
-module.exports = { addEmployeeValidationSchema };
+const editEmployeeValidationSchema = Joi.object({
+  firstname: Joi.string().min(3).max(40).trim(),
+  lastname: Joi.string().min(3).max(40).trim(),
+  dateOfBirth: Joi.date().iso(),
+  nationalCode: Joi.string().length(10).pattern(numericStringRegex).trim(),
+  province: Joi.string().lowercase().trim(),
+  phoneNumber: Joi.array()
+    .min(1)
+    .items(Joi.string().pattern(iranPhoneNumberRegex)),
+  gender: Joi.string().valid('male', 'female', 'not-set').lowercase().trim()
+});
+
+module.exports = { addEmployeeValidationSchema, editEmployeeValidationSchema };

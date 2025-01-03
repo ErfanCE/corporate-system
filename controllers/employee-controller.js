@@ -74,4 +74,64 @@ const addEmployee = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllEmployees, addEmployee, validateProvince };
+const editEmployeeById = async (req, res, next) => {
+  try {
+    const { id: employeeId } = req.params;
+    const {
+      firstname,
+      lastname,
+      gender,
+      dateOfBirth,
+      nationalCode,
+      province,
+      role,
+      phoneNumber
+    } = req.body;
+
+    const employee = await Employee.findById(employeeId);
+    if (!employee) {
+      return next(new AppError(404, `employee: ${employeeId} not found`));
+    }
+
+    const duplicateNationalCode = await Employee.findOne({ nationalCode });
+    if (
+      !!duplicateNationalCode &&
+      duplicateNationalCode.nationalCode !== employee.nationalCode
+    ) {
+      return next(
+        new AppError(
+          409,
+          `national code: ${nationalCode} is already exist, choose a different national code`
+        )
+      );
+    }
+
+    // TODO: check phone number duplication
+
+    // edit employee properties
+    employee.firstname = firstname ?? employee.firstname;
+    employee.lastname = lastname ?? employee.lastname;
+    employee.gender = gender ?? employee.gender;
+    employee.dateOfBirth = dateOfBirth ?? employee.dateOfBirth;
+    employee.nationalCode = nationalCode ?? employee.nationalCode;
+    employee.province = province ?? employee.province;
+    employee.role = role ?? employee.role;
+    employee.phoneNumber = phoneNumber ?? employee.phoneNumber;
+
+    await employee.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: { employee }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {
+  getAllEmployees,
+  addEmployee,
+  validateProvince,
+  editEmployeeById
+};
