@@ -3,7 +3,8 @@ const {
   addEmployee,
   validateProvince,
   getAllEmployees,
-  editEmployeeById
+  editEmployeeById,
+  deleteEmployeeById
 } = require('../controllers/employee-controller');
 const { validator } = require('../validation/validator');
 const {
@@ -20,11 +21,15 @@ router.post(
   addEmployee
 );
 
+// TODO: add param middleware
+
 router.patch(
   '/:id',
   validator(editEmployeeValidationSchema),
   validateProvince,
   editEmployeeById
 );
+
+router.delete('/:id', deleteEmployeeById);
 
 module.exports = router;

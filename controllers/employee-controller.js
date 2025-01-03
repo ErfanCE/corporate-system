@@ -129,9 +129,28 @@ const editEmployeeById = async (req, res, next) => {
   }
 };
 
+const deleteEmployeeById = async (req, res, next) => {
+  try {
+    const { id: employeeId } = req.params;
+
+    const employee = await Employee.findByIdAndDelete(employeeId);
+    if (!employee) {
+      return next(new AppError(404, `employee: ${employeeId} not found`));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: { employee }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAllEmployees,
   addEmployee,
   validateProvince,
-  editEmployeeById
+  editEmployeeById,
+  deleteEmployeeById
 };
