@@ -1,5 +1,5 @@
 const asyncHandler = (asyncFn) => (req, res, next) => {
-  asyncHandler(req, res, next).catch(next);
+  asyncFn(req, res, next).catch(next);
 };
 
 module.exports = { asyncHandler };

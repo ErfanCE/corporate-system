@@ -1,30 +1,6 @@
 const Employee = require('../models/employee-model');
-const ObjectId = require('mongoose').Types.ObjectId;
 const { AppError } = require('../utils/app-error');
 const { ApiFeatures } = require('../utils/api-features');
-const { getProvinces } = require('../utils/iran-provinces-data');
-
-const validateProvince = async (req, res, next) => {
-  const { province = 'not-set' } = req.body;
-
-  if (province === 'not-set') return next();
-
-  const provinces = await getProvinces();
-  if (!provinces.includes(province)) {
-    return next(new AppError(400, 'provide valid province :)'));
-  }
-
-  next();
-};
-
-const validateEmployeeId = (req, res, next, id) => {
-  const err = new AppError(400, `invalid employee id: ${id}`);
-
-  if (!ObjectId.isValid(id)) return next(err);
-  if (new ObjectId(id).toString() !== id) return next(err);
-
-  next();
-};
 
 const getAllEmployees = async (req, res, next) => {
   const { page = 1, limit = 10 } = req.query;
@@ -182,8 +158,6 @@ const deleteEmployeeById = async (req, res, next) => {
 };
 
 module.exports = {
-  validateProvince,
-  validateEmployeeId,
   getAllEmployees,
   addEmployee,
   getEmployeeById,

@@ -37,6 +37,8 @@ app.use((err, req, res, next) => {
     message = 'internal sever error, not your fault :)'
   } = err;
 
+  console.log(err);
+
   res.status(statusCode).json({ status, message });
 });
 
