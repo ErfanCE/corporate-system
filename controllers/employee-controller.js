@@ -1,6 +1,13 @@
 const Employee = require('../models/employee-model');
+const Company = require('../models/company-model');
 const { AppError } = require('../utils/app-error');
 const { ApiFeatures } = require('../utils/api-features');
+const { isValidObjectId } = require('../utils/validate-object-id');
+
+const setManagerRole = (req, res, next) => {
+  req.body.role = 'manager';
+  next();
+};
 
 const getAllEmployees = async (req, res, next) => {
   const { page = 1, limit = 10 } = req.query;
@@ -30,7 +37,17 @@ const getAllEmployees = async (req, res, next) => {
 
 // TODO: refactor duplication validations
 const addEmployee = async (req, res, next) => {
-  const { nationalCode, phoneNumber } = req.body;
+  const { nationalCode, phoneNumber, company } = req.body;
+
+  if (!isValidObjectId(company)) {
+    return next(new AppError(400, 'provide valid company(company id)'));
+  }
+
+  // check company relation
+  const companyExists = await Company.findById(company);
+  if (!companyExists) {
+    return next(new AppError(404, `company: ${company} not found`));
+  }
 
   // national code duplication validation
   const nationalCodeExists = await Employee.exists({ nationalCode });
@@ -65,7 +82,8 @@ const addEmployee = async (req, res, next) => {
 const getEmployeeById = async (req, res, next) => {
   const { id: employeeId } = req.params;
 
-  const employee = await Employee.findById(employeeId);
+  const employee = await Employee.findById(employeeId).populate('company');
+
   if (!employee) {
     return next(new AppError(404, `employee: ${employeeId} not found`));
   }
@@ -79,14 +97,15 @@ const getEmployeeById = async (req, res, next) => {
 const editEmployeeById = async (req, res, next) => {
   const { id: employeeId } = req.params;
   const {
-    firstname,
-    lastname,
-    gender,
-    dateOfBirth,
-    nationalCode,
-    province,
-    role,
-    phoneNumber
+    company = null,
+    firstname = null,
+    lastname = null,
+    gender = null,
+    dateOfBirth = null,
+    nationalCode = null,
+    province = null,
+    role = null,
+    phoneNumber = []
   } = req.body;
 
   const employee = await Employee.findById(employeeId);
@@ -125,7 +144,17 @@ const editEmployeeById = async (req, res, next) => {
     }
   }
 
+  if (!!company && !isValidObjectId(company)) {
+    return next(new AppError(400, 'provide valid company(company id)'));
+  }
+
+  const companyExists = await Company.findById(company);
+  if (!!company && !companyExists) {
+    return next(new AppError(404, `company: ${company} not found`));
+  }
+
   // edit employee properties
+  employee.company = company ?? employee.company;
   employee.firstname = firstname ?? employee.firstname;
   employee.lastname = lastname ?? employee.lastname;
   employee.gender = gender ?? employee.gender;
@@ -133,7 +162,10 @@ const editEmployeeById = async (req, res, next) => {
   employee.nationalCode = nationalCode ?? employee.nationalCode;
   employee.province = province ?? employee.province;
   employee.role = role ?? employee.role;
-  employee.phoneNumber = phoneNumber ?? employee.phoneNumber;
+  if (!!phoneNumber.length) {
+    employee.phoneNumber = phoneNumber;
+  }
+  employee.phoneNumber = employee.phoneNumber;
 
   await employee.save();
 
@@ -158,6 +190,7 @@ const deleteEmployeeById = async (req, res, next) => {
 };
 
 module.exports = {
+  setManagerRole,
   getAllEmployees,
   addEmployee,
   getEmployeeById,

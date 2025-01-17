@@ -1,4 +1,5 @@
 const Company = require('../models/company-model');
+const Employee = require('../models/employee-model');
 const { AppError } = require('../utils/app-error');
 const { ApiFeatures } = require('../utils/api-features');
 
@@ -96,7 +97,6 @@ const editCompanyById = async (req, res, next) => {
     phoneNumber,
     _id: { $ne: company._id }
   });
-
   if (!!duplicatePhoneNumber) {
     return next(
       new AppError(
@@ -105,9 +105,6 @@ const editCompanyById = async (req, res, next) => {
       )
     );
   }
-
-  console.log(company.phoneNumber);
-  console.log(phoneNumber);
 
   company.name = name ?? company.name;
   company.registerationCode = registerationCode ?? company.registerationCode;
@@ -129,6 +126,9 @@ const deleteCompanyById = async (req, res, next) => {
   if (!company) {
     return next(new AppError(404, `company: ${companyId} not found`));
   }
+
+  // remove linked employees
+  await Employee.deleteMany({ company: companyId });
 
   res.status(200).json({
     status: 'success',

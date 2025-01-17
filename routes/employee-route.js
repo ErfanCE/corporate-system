@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const {
+  setManagerRole,
   addEmployee,
   getAllEmployees,
   getEmployeeById,
@@ -21,6 +22,14 @@ router.post(
   '/',
   validator(addEmployeeValidationSchema),
   asyncHandler(validateProvince),
+  asyncHandler(addEmployee)
+);
+
+router.post(
+  '/manager',
+  validator(addEmployeeValidationSchema),
+  asyncHandler(validateProvince),
+  setManagerRole,
   asyncHandler(addEmployee)
 );
 

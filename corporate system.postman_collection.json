@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "38ae6c3b-39cf-453b-89d2-4a7bc90a0591",
+		"name": "corporate system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19061850"
+	},
+	"item": [
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "get all employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"employees"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "-dateOfBirth",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "erfan",
+									"disabled": true
+								},
+								{
+									"key": "dateOfBirth[lte]",
+									"value": "2000-01-01",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "phoneNumber",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/employees/6788cff37a3551bcd2af5da6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"employees",
+								"6788cff37a3551bcd2af5da6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add new employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"678a15fcb951485d5771d3ee\",\n    \"firstname\": \"mohadese\",\n    \"lastname\": \"ahmadi\",\n    \"dateOfBirth\": \"1994-04-10\",\n    \"nationalCode\": \"1238847899\",\n    \"phoneNumber\": [\"09128811999\"],\n    \"gender\": \"female\",\n    \"province\":\"kerman\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit employee by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"6788c468984a785344cd8c7c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/employees/6788cff37a3551bcd2af5da6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"employees",
+								"6788cff37a3551bcd2af5da6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete employee by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/employees/676e51fe5cb5109b526c01f6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"employees",
+								"676e51fe5cb5109b526c01f6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Companies",
+			"item": [
+				{
+					"name": "get all companies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/companies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/companies/6788c2f4984a785344cd8c63",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"6788c2f4984a785344cd8c63"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add new company",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"digikala\",\n    \"registerationCode\": \"1111111112\",\n    \"phoneNumber\": \"09122211223\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit company by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"alibaba\",\n    \"registerationCode\": \"1111111111\",\n    \"phoneNumber\": \"09122211221\",\n    \"province\": \"fars\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/companies/6788c2f4984a785344cd8c63",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"6788c2f4984a785344cd8c63"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete company by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/companies/6788c468984a785344cd8c7c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"6788c468984a785344cd8c7c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -4,6 +4,7 @@ const numericStringRegex = /^\d+$/;
 const iranPhoneNumberRegex = /^(\+98|0)?9\d{9}$/;
 
 const addEmployeeValidationSchema = Joi.object({
+  company: Joi.string().required(),
   firstname: Joi.string().min(3).max(40).trim().required(),
   lastname: Joi.string().min(3).max(40).trim().required(),
   dateOfBirth: Joi.date().iso().required(),
@@ -21,6 +22,7 @@ const addEmployeeValidationSchema = Joi.object({
 });
 
 const editEmployeeValidationSchema = Joi.object({
+  company: Joi.string(),
   firstname: Joi.string().min(3).max(40).trim(),
   lastname: Joi.string().min(3).max(40).trim(),
   dateOfBirth: Joi.date().iso(),

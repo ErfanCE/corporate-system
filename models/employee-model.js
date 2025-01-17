@@ -4,6 +4,11 @@ const { isDate, isNumeric, isMobilePhone } = require('validator');
 
 const EmployeeSchema = new Schema(
   {
+    company: {
+      type: Schema.Types.ObjectId,
+      ref: 'Company',
+      required: [true, 'company is required']
+    },
     firstname: {
       type: String,
       required: [true, 'firstname is required.'],

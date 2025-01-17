@@ -1,9 +1,9 @@
 // Third Party Modules
 const express = require('express');
 const morgan = require('morgan');
-const { connectToDatabase } = require('./database/database-connection');
 
 // Local Modules
+const { connectToDatabase } = require('./database/database-connection');
 const { AppError } = require('./utils/app-error');
 const appRouter = require('./routes/app-route');
 
